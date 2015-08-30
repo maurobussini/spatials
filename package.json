@@ -1,0 +1,35 @@
+{
+  "name": "spatials",
+  "version": "1.0.0",
+  "description": "A bunch of utilities for geocoding and spatial calculation",
+  "main": "build/spatials.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "latitude",
+    "longitude",
+    "geo",
+    "coordinate",
+    "bearing",
+    "polygon",
+    "sexagesimal",
+    "distance",
+    "duration",
+    "point"
+  ],
+  "author": "maurobussini",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "geolib": "^2.0.18"
+  }
+}
