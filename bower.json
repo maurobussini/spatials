@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "description": "A bunch of utilities for geocoding and spatial calculation",
   "main": "build/spatials.min.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "moduleType": [
+    "globals",
+    "node"
+  ],
   "keywords": [
     "latitude",
     "longitude",
@@ -21,15 +19,21 @@
     "duration",
     "point"
   ],
-  "author": "maurobussini",
+  "authors": [
+    "maurobussini"
+  ],
   "license": "MIT",
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.11.2",
-    "grunt-contrib-uglify": "^0.9.1",
-    "mocha": "^2.2.5"
-  },
-  "dependencies": {
-    "geolib": "^2.0.18"
-  }
+  "homepage": "https://github.com/maurobussini/spatials",
+  "ignore": [
+    "node_modules",
+	"src",
+    "test",
+    ".idea",
+	".gitignore",
+	"bower.json",
+	"Gruntfile.js",
+	"LICENSE",
+	"package.json",
+	"README.md"
+  ]
 }
