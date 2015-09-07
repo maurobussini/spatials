@@ -1,6 +1,6 @@
 {
   "name": "spatials",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A bunch of utilities for geocoding and spatial calculation",
   "main": "build/spatials.min.js",
   "moduleType": [
@@ -35,5 +35,8 @@
 	"LICENSE",
 	"package.json",
 	"README.md"
-  ]
+  ],
+  "dependencies": {
+    "geolib": "^2.0.18"
+  }
 }
