@@ -1,6 +1,3 @@
-/**
- * Created by maurobussini on 18/07/2015.
- */
 (function (root, factory) {
 
     //UMD - Universal Module Definition
@@ -270,6 +267,230 @@
         return metersToSomething(meters, decimals, 'yd');
     }
 
+    /**
+     * Converts miles to meters
+     * @param miles Miles
+     * @param decimals Decimals
+     * @returns {number} Returns meters
+     */
+    function milesToMeters(miles, decimals){
+
+        //Use basic function
+        return somethingToMeters(miles, 'mi', decimals);
+    }
+
+    /**
+     * Converts seamiles to meters
+     * @param seamiles Seamiles
+     * @param decimals Decimals
+     * @returns {*} Returns meters
+     */
+    function seamilesToMeters(seamiles, decimals){
+
+        //Use basic function
+        return somethingToMeters(seamiles, 'sm', decimals);
+    }
+
+    /**
+     * Converts feet to meters
+     * @param feet Feet
+     * @param decimals Decimals
+     * @returns {*} Returns meters
+     */
+    function feetToMeters(feet, decimals){
+
+        //Use basic function
+        return somethingToMeters(feet, 'ft', decimals);
+    }
+
+    /**
+     * Converts inches to meters
+     * @param inches Inches
+     * @param decimals Decimals
+     * @returns {*} Returns meters
+     */
+    function inchesToMeters(inches, decimals){
+
+        //Use basic function
+        return somethingToMeters(inches, 'in', decimals);
+    }
+
+    /**
+     * Converts yards to meters
+     * @param yards Yards
+     * @param decimals Decimals
+     * @returns {*} Returns meters
+     */
+    function yardsToMeters(yards, decimals){
+
+        //Use basic function
+        return somethingToMeters(yards, 'yd', decimals);
+    }
+
+    /**
+     * Converts the source value (with provided unit) to meters
+     * @param sourceValue Source value
+     * @param sourceUnit Source unit
+     * @param decimals Decimal places
+     * @returns {number} Returns converted value
+     */
+    function somethingToMeters(sourceValue, sourceUnit, decimals){
+
+        //Arguments validation
+        if (typeof sourceValue === 'undefined' || sourceValue === null)
+            throw new Error("Argument 'sourceValue' is invalid");
+
+        //Check if is a number
+        if (isNaN(sourceValue))
+            throw new Error("Provided source value should be number");
+
+        //Set default for decimals
+        decimals = (null == decimals ? 4 : decimals);
+
+        //Get multiplier for source value from geolib
+        var multiplier = geolib.measures[sourceUnit];
+
+        //Use multiplier to get meters
+        var meters = sourceValue / multiplier;
+
+        //Round value
+        meters = geolib.round(meters, decimals);
+
+        //Returns value
+        return meters;
+    }
+
+    /**
+     * Converts speed in meters/second to km/h
+     * @param metersSecond Speed in ms/s
+     * @param decimals Number of decimals
+     * @returns {*} Returns km/h value
+     */
+    function metersSecondToKilometersHour(metersSecond, decimals){
+
+        //Use basic function
+        return convertSpeed(metersSecond, 'msToKmh', decimals);
+    }
+
+    /**
+     * Converts speed in meters/second to knots
+     * @param metersSecond Speed in ms/s
+     * @param decimals Number of decimals
+     * @returns {*} Returns knots value
+     */
+    function metersSecondToKnots(metersSecond, decimals){
+
+        //Use basic function
+        return convertSpeed(metersSecond, 'msToKn', decimals);
+    }
+
+    /**
+     * Converts speed in km/h to m/s
+     * @param metersSecond Speed in km/h
+     * @param decimals Number of decimals
+     * @returns {*} Returns m/s value
+     */
+    function kilometersHourToMetersSecond(kilometersHour, decimals){
+
+        //Use basic function
+        return convertSpeed(kilometersHour, 'kmhToMs', decimals);
+    }
+
+    /**
+     * Converts speed in knts to m/s
+     * @param knots Speed in knots
+     * @param decimals Number of decimals
+     * @returns {*} Returns m/s value
+     */
+    function knotsToMetersSecond(knots, decimals){
+
+        //Use basic function
+        return convertSpeed(knots, 'knToMs', decimals);
+    }
+
+    /**
+     * Converts speed in km/h to knots
+     * @param kilometersHour Speed in km/h
+     * @param decimals Number of decimals
+     * @returns {*} Returns knots value
+     */
+    function kilometersHourToKnots(kilometersHour, decimals){
+
+        //Use basic function
+        return convertSpeed(kilometersHour, 'kmhToKn', decimals);
+    }
+
+    /**
+     * Converts speed in knots to km/h
+     * @param kilometersHour Speed in knots
+     * @param decimals Number of decimals
+     * @returns {*} Returns km/h value
+     */
+    function knotsToKilometersHour(kilometersHour, decimals){
+
+        //Use basic function
+        return convertSpeed(kilometersHour, 'knToKmh', decimals);
+    }
+
+    /**
+     * Converts speed measure to target
+     * @param sourceValue Source value
+     * @param multiplierName Name of multiplier
+     * @param decimals Number of decimals
+     * @returns {number} Returns conversion
+     */
+    function convertSpeed(sourceValue, multiplierName, decimals){
+
+        //Arguments validation
+        if (typeof sourceValue === 'undefined' || sourceValue === null)
+            throw new Error("Argument 'sourceValue' is invalid");
+
+        //Check if is a number
+        if (isNaN(sourceValue))
+            throw new Error("Provided source value should be number");
+
+        //Set default for decimals
+        decimals = (null == decimals ? 4 : decimals);
+
+        //Multipliers
+        var speedMultipliers = {
+            kmhToMs: 1/3.6,
+            msToKmh: 3.6,
+            knToMs: 1/1.943844492441,
+            msToKn: 1.943844492441,
+            kmhToKn: null,
+            knToKmh: null
+        };
+
+        //Create multipliers for kmh and kn
+        speedMultipliers.kmhToKn =  speedMultipliers.kmhToMs * speedMultipliers.msToKn;
+        speedMultipliers.knToKmh =  speedMultipliers.knToMs * speedMultipliers.msToKmh;
+
+        //Get multiplier for source value from geolib
+        var multiplier = speedMultipliers[multiplierName];
+
+        //If multipler cannot be found, error
+        if (!multiplier)
+            throw new Error("Target speed unit '" +
+                targetUnit + "' is not supported");
+
+        //Use multiplier to get target unit
+        var targetValue = sourceValue * multiplier;
+
+        //Round value
+        targetValue = geolib.round(targetValue, decimals);
+
+        //Returns value
+        return targetValue;
+    }
+
+    /*
+    function(value, n) {
+        var decPlace = Math.pow(10, n);
+        return Math.round(value * decPlace)/decPlace;
+    }
+    */
+
     //*** DISTANCE
 
     /**
@@ -277,7 +498,7 @@
      * @param pointA Origin coordinates
      * @param pointB Destination coordinates
      * @param accuracy Accuracy (in meters) of calculation
-     * @returns {*|integer} Returns distance in meters
+     * @returns Returns distance in meters
      */
     function getSegmentDistance(pointA, pointB, accuracy) {
 
@@ -299,7 +520,7 @@
      * Get distance of route defined by array of coordinates
      * @param routeCoordinates Array of coordinates
      * @param accuracy Accuracy (in meters) of calculation
-     * @returns {*|integer} Returns distance in meters
+     * @returns Number distance in meters
      */
     function getRouteDistance(routeCoordinates, accuracy) {
 
@@ -594,6 +815,19 @@
         metersToFeet: metersToFeet,
         metersToInches: metersToInches,
         metersToYards: metersToYards,
+        milesToMeters: milesToMeters,
+        seamilesToMeters: seamilesToMeters,
+        feetToMeters: feetToMeters,
+        inchesToMeters: inchesToMeters,
+        yardsToMeters: yardsToMeters,
+
+        //speed
+        metersSecondToKilometersHour: metersSecondToKilometersHour,
+        metersSecondToKnots: metersSecondToKnots,
+        kilometersHourToMetersSecond: kilometersHourToMetersSecond,
+        knotsToMetersSecond: knotsToMetersSecond,
+        kilometersHourToKnots: kilometersHourToKnots,
+        knotsToKilometersHour: knotsToKilometersHour,
 
         //distance
         getSegmentDistance: getSegmentDistance,

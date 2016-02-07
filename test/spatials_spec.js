@@ -89,7 +89,6 @@ describe("spatials", function(){
             assert.ok(sexagesimal == locationSexagesimalAlgund.latitude);
         });
 
-
         it("should convert decimal longitude in sexagesimal", function(){
 
             //Converts decimal longitude in sexagesimal
@@ -98,7 +97,6 @@ describe("spatials", function(){
             //Ok if value is the one expected
             assert.ok(sexagesimal == locationSexagesimalAlgund.longitude);
         });
-
 
         it("should convert sexagesimal latitude in decimal", function(){
 
@@ -109,7 +107,6 @@ describe("spatials", function(){
             assert.ok(decimal == locationDecimalAlgund.latitude);
         });
 
-
         it("should convert sexagesimal longitude in decimal", function(){
 
             //Converts sexagesimal longitude in decimal
@@ -118,7 +115,6 @@ describe("spatials", function(){
             //Ok if value is the one expected
             assert.ok(decimal == locationDecimalAlgund.longitude);
         });
-
 
         it("should convert meters in kilometers", function(){
 
@@ -129,16 +125,24 @@ describe("spatials", function(){
             assert.ok(value == 7.61);
         });
 
-
         it("should convert meters in miles", function(){
 
             //Execute conversion
-            var value = spatials.metersToMiles(distanceAlgundSinich, 2);
+            var value = spatials.metersToMiles(distanceAlgundSinich, 6);
 
             //Ok if value is the one expected
-            assert.ok(value == 4.73);
+            assert.ok(value == 4.728013);
         });
 
+        it("should convert miles in meters", function(){
+
+            //Execute conversion
+            var value = spatials.milesToMeters(4.728013, 8);
+
+            //Ok if value is the one expected
+            var roundedResult = Math.round(value);
+            assert.ok(roundedResult == distanceAlgundSinich);
+        });
 
         it("should convert meters in seamiles", function(){
 
@@ -149,6 +153,15 @@ describe("spatials", function(){
             assert.ok(value == 4.11);
         });
 
+        it("should convert seamiles in meters", function(){
+
+            //Execute conversion
+            var value = spatials.seamilesToMeters(4.11, 8);
+
+            //Ok if value is the one expected
+            var roundedResult = Math.round(value);
+            assert.ok(roundedResult == 7613);
+        });
 
         it("should convert meters in feet", function(){
 
@@ -159,6 +172,15 @@ describe("spatials", function(){
             assert.ok(value == 24964);
         });
 
+        it("should convert feet in meters", function(){
+
+            //Execute conversion
+            var value = spatials.feetToMeters(24964, 8);
+
+            //Ok if value is the one expected
+            var roundedResult = Math.round(value);
+            assert.ok(roundedResult == distanceAlgundSinich);
+        });
 
         it("should convert meters in inches", function(){
 
@@ -167,6 +189,16 @@ describe("spatials", function(){
 
             //Ok if value is the one expected
             assert.ok(value == 299567);
+        });
+
+        it("should convert inches in meters", function(){
+
+            //Execute conversion
+            var value = spatials.inchesToMeters(299567, 0);
+
+            //Ok if value is the one expected
+            var roundedResult = Math.round(value);
+            assert.ok(value == distanceAlgundSinich);
         });
 
 
@@ -178,6 +210,74 @@ describe("spatials", function(){
             //Ok if value is the one expected
             assert.ok(value == 8321);
         });
+
+        it("should convert yards in meters", function(){
+
+            //Execute conversion
+            var value = spatials.yardsToMeters(8321, 0);
+
+            //Ok if value is the one expected
+            var roundedResult = Math.round(value);
+            assert.ok(value == distanceAlgundSinich);
+        });
+    });
+
+    describe("speed", function(){
+
+        it("should convert m/s in km/h", function(){
+
+            //Execute conversion
+            var value = spatials.metersSecondToKilometersHour(10, 8);
+
+            //Ok if value is the one expected
+            assert.ok(value == 36);
+        });
+
+        it("should convert km/h in m/s", function(){
+
+            //Execute conversion
+            var value = spatials.kilometersHourToMetersSecond(36, 8);
+
+            //Ok if value is the one expected
+            assert.ok(value == 10);
+        });
+
+        it("should convert m/s in knots", function(){
+
+            //Execute conversion
+            var value = spatials.metersSecondToKnots(100, 8);
+
+            //Ok if value is the one expected
+            assert.ok(value == 194.38444924);
+        });
+
+        it("should convert knots in m/s", function(){
+
+            //Execute conversion
+            var value = spatials.knotsToMetersSecond(100, 8);
+
+            //Ok if value is the one expected
+            assert.ok(value == 51.44444444);
+        });
+
+        it("should convert km/h in knots", function(){
+
+            //Execute conversion
+            var value = spatials.kilometersHourToKnots(100, 8);
+
+            //Ok if value is the one expected
+            assert.ok(value == 53.99568035);
+        });
+
+        it("should convert knots in km/h", function(){
+
+            //Execute conversion
+            var value = spatials.knotsToKilometersHour(100, 8);
+
+            //Ok if value is the one expected
+            assert.ok(value == 185.2);
+        });
+
     });
 
     describe("distance", function(){
